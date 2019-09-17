@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import { setGames } from "./actions/games";
 import GameFormContainer from "./components/AddGameForm/GameFormContainer";
 import GamesListContainer from "./components/GamesList/GamesListContainer";
-import url from "./constants";
+
+const url = "http://localhost:4000";
 
 class App extends React.Component {
   source = new EventSource(`${url}/stream`);
