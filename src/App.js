@@ -26,7 +26,9 @@ class App extends React.Component {
       <div>
         <Route
           path="/lobby/:gameId"
-          render={() => <GamePageContainer cookies={this.props.cookies} />}
+          render={props => (
+            <GamePageContainer cookies={this.props.cookies} {...props} />
+          )}
           // component={({ match }) => console.log(match)}
           // component={GamePageContainer}
         />
