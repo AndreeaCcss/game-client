@@ -11,8 +11,9 @@ class LoginFormContainer extends React.Component {
   };
 
   onSubmit = event => {
+    const { cookies } = this.props;
     event.preventDefault();
-    this.props.login(this.state.name, this.state.password);
+    this.props.login(this.state.name, this.state.password, cookies);
     this.setState({
       name: "",
       password: ""
@@ -41,14 +42,14 @@ class LoginFormContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
-    user: state.user
+    user: state.user,
+    cookies: ownProps.cookies
   };
 }
 
 export default connect(
   mapStateToProps,
-  // null,
   { login }
 )(LoginFormContainer);

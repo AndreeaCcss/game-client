@@ -6,9 +6,12 @@ import { connect } from "react-redux";
 
 class GamesList extends React.Component {
   onClick = (e, gameId) => {
+    console.log("props", this.props);
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/join/${gameId}`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
@@ -41,10 +44,11 @@ class GamesList extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     games: state.games,
-    user: state.user
+    user: state.user,
+    cookies: ownProps.cookies
   };
 };
 

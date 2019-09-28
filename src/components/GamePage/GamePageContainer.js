@@ -11,27 +11,34 @@ import Header from "../Header/Header";
 
 class GamePageContainer extends React.Component {
   onChoice = (e, choice) => {
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/choose/${choice}`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
   onScorePage = () => {
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/round`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
   onQuitGame = () => {
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/reset`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
   render() {
+    console.log("props Game page container", this.props);
     const game =
       this.props.games.length > 0
         ? this.props.games.find(
@@ -72,10 +79,11 @@ class GamePageContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     user: state.user,
-    games: state.games
+    games: state.games,
+    cookies: ownProps.cookies
   };
 }
 

@@ -1,9 +1,9 @@
-import "./App.css";
-
 import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
+import { withCookies } from "react-cookie";
 
+import "./App.css";
 import { setGames } from "./actions/games";
 import url from "./constants";
 import HomePage from "./components/HomePage";
@@ -24,8 +24,18 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Route path="/lobby/:gameId" component={GamePageContainer} />
-        <Route exact path="/" component={HomePage} />
+        <Route
+          path="/lobby/:gameId"
+          render={() => <GamePageContainer cookies={this.props.cookies} />}
+          // component={({ match }) => console.log(match)}
+          // component={GamePageContainer}
+        />
+        <Route
+          exact
+          path="/"
+          render={() => <HomePage cookies={this.props.cookies} />}
+          // component={HomePage}
+        />
       </div>
     );
   }
@@ -45,4 +55,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(withCookies(App));

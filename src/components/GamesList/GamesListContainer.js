@@ -10,16 +10,17 @@ class GamesListContainer extends React.Component {
         {this.props.games.length === 0 ? (
           "No rooms available"
         ) : (
-          <GamesList games={this.props.games} />
+          <GamesList games={this.props.games} cookies={this.props.cookies} />
         )}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownPros) => {
   return {
-    games: state.games
+    games: state.games,
+    cookies: ownPros.cookies
   };
 };
 
