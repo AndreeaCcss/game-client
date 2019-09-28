@@ -24,8 +24,7 @@ export const login = (name, password, cookie) => dispatch => {
     .post(`${url}/login`)
     .send({ name, password })
     .then(response => {
-      console.log(response.body);
-      console.log("jwt from login", response.body.jwt);
+      cookie.set("userId", response.body.id, { path: "/" });
       cookie.set("user", response.body.jwt, { path: "/" });
       dispatch(jwt(response.body));
     });

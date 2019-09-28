@@ -45,11 +45,15 @@ class GamePageContainer extends React.Component {
             game => game.id === parseInt(this.props.match.params.gameId)
           )
         : null;
-
+    console.log("game", game);
     return (
       <div className="gamePageContainer">
         {!game ? null : game.users.length === 2 ? (
-          <ScoreBar game={game} user={this.props.user} />
+          <ScoreBar
+            game={game}
+            // user={this.props.user}
+            cookies={this.props.cookies}
+          />
         ) : null}
         {!game ? (
           "Loading... "
@@ -62,13 +66,15 @@ class GamePageContainer extends React.Component {
           <ScorePage
             game={game}
             onClick={this.onScorePage}
-            user={this.props.user}
+            // user={this.props.user}
+            cookies={this.props.cookies}
           />
         ) : (
           <GamePage
             onClick={this.onChoice}
             game={game}
-            user={this.props.user}
+            // user={this.props.user}
+            cookies={this.props.cookies}
           />
         )}
         <Link onClick={this.onQuitGame} to={`/`}>

@@ -16,7 +16,8 @@ class GameFormContainer extends React.Component {
     const { name } = this.state;
     const { cookies } = this.props;
     const user = cookies.get("user");
-
+    const userId = cookies.get("userId");
+    console.log("user id", userId);
     request
       .post(`${url}/game`)
       .set("Authorization", `Bearer ${user}`)

@@ -29,14 +29,11 @@ class App extends React.Component {
           render={props => (
             <GamePageContainer cookies={this.props.cookies} {...props} />
           )}
-          // component={({ match }) => console.log(match)}
-          // component={GamePageContainer}
         />
         <Route
           exact
           path="/"
           render={() => <HomePage cookies={this.props.cookies} />}
-          // component={HomePage}
         />
       </div>
     );

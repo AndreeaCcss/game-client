@@ -16,13 +16,20 @@ class HomePage extends React.Component {
       <div>
         <Header />
         {userCookie ? (
-          <div>
-            <GameFormContainer cookies={this.props.cookies} />
-            <GamesListContainer cookies={this.props.cookies} />
-            <button onClick={this.props.logOut} className="quitGameButton">
-              Log Out
-            </button>
-          </div>
+          !userCookie.includes("undefined") ? (
+            <div>
+              <GameFormContainer cookies={this.props.cookies} />
+              <GamesListContainer cookies={this.props.cookies} />
+              <button onClick={this.props.logOut} className="quitGameButton">
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <div>
+              <SignupFormContainer />
+              <LoginFormContainer cookies={this.props.cookies} />
+            </div>
+          )
         ) : (
           <div>
             <SignupFormContainer />
