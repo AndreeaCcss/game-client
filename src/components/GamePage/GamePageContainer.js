@@ -11,38 +11,49 @@ import Header from "../Header/Header";
 
 class GamePageContainer extends React.Component {
   onChoice = (e, choice) => {
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/choose/${choice}`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
   onScorePage = () => {
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/round`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
   onQuitGame = () => {
+    const { cookies } = this.props;
+    const user = cookies.get("user");
     request
       .put(`${url}/reset`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .catch(console.error);
   };
 
   render() {
+    console.log("props Game page container", this.props);
     const game =
       this.props.games.length > 0
         ? this.props.games.find(
             game => game.id === parseInt(this.props.match.params.gameId)
           )
         : null;
-
+    console.log("game", game);
     return (
       <div className="gamePageContainer">
         {!game ? null : game.users.length === 2 ? (
-          <ScoreBar game={game} user={this.props.user} />
+          <ScoreBar
+            game={game}
+            // user={this.props.user}
+            cookies={this.props.cookies}
+          />
         ) : null}
         {!game ? (
           "Loading... "
@@ -55,13 +66,15 @@ class GamePageContainer extends React.Component {
           <ScorePage
             game={game}
             onClick={this.onScorePage}
-            user={this.props.user}
+            // user={this.props.user}
+            cookies={this.props.cookies}
           />
         ) : (
           <GamePage
             onClick={this.onChoice}
             game={game}
-            user={this.props.user}
+            // user={this.props.user}
+            cookies={this.props.cookies}
           />
         )}
         <Link onClick={this.onQuitGame} to={`/`}>
@@ -72,10 +85,11 @@ class GamePageContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     user: state.user,
-    games: state.games
+    games: state.games,
+    cookies: ownProps.cookies
   };
 }
 

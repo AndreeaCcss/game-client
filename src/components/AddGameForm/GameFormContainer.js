@@ -14,10 +14,13 @@ class GameFormContainer extends React.Component {
     event.preventDefault();
 
     const { name } = this.state;
-
+    const { cookies } = this.props;
+    const user = cookies.get("user");
+    const userId = cookies.get("userId");
+    console.log("user id", userId);
     request
       .post(`${url}/game`)
-      .set("Authorization", `Bearer ${this.props.user.jwt}`)
+      .set("Authorization", `Bearer ${user}`)
       .send({ name })
       .then(() => {
         this.setState({ name: "" });
@@ -41,7 +44,7 @@ class GameFormContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { user: state.user }
+  return { user: state.user };
 }
 
-export default connect(mapStateToProps)(GameFormContainer)
+export default connect(mapStateToProps)(GameFormContainer);

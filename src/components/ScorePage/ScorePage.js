@@ -2,9 +2,12 @@ import React from "react";
 
 export default class ScorePage extends React.Component {
   render() {
+    const { cookies } = this.props;
+    const userId = cookies.get("userId");
+
     const users = this.props.game.users;
-    const userOne = users.find(user => user.id === this.props.user.id);
-    const userTwo = users.find(user => user.id !== this.props.user.id);
+    const userOne = users.find(user => user.id === parseInt(userId));
+    const userTwo = users.find(user => user.id !== parseInt(userId));
     const winner = users.find(user => {
       return user.isRoundWinner === true;
     });

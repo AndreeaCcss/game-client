@@ -19,11 +19,13 @@ function jwt(payload) {
   };
 }
 
-export const login = (name, password) => dispatch => {
+export const login = (name, password, cookie) => dispatch => {
   request
     .post(`${url}/login`)
     .send({ name, password })
     .then(response => {
+      cookie.set("userId", response.body.id, { path: "/" });
+      cookie.set("user", response.body.jwt, { path: "/" });
       dispatch(jwt(response.body));
     });
 };

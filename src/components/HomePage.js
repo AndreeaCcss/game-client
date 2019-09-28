@@ -10,21 +10,30 @@ import { logOut } from "../actions/user";
 
 class HomePage extends React.Component {
   render() {
+    const { cookies } = this.props;
+    const userCookie = cookies.get("user");
     return (
       <div>
         <Header />
-        {this.props.user.jwt ? (
-          <div>
-            <GameFormContainer />
-            <GamesListContainer />
-            <button onClick={this.props.logOut} className="quitGameButton">
-              Log Out
-            </button>
-          </div>
+        {userCookie ? (
+          !userCookie.includes("undefined") ? (
+            <div>
+              <GameFormContainer cookies={this.props.cookies} />
+              <GamesListContainer cookies={this.props.cookies} />
+              <button onClick={this.props.logOut} className="quitGameButton">
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <div>
+              <SignupFormContainer />
+              <LoginFormContainer cookies={this.props.cookies} />
+            </div>
+          )
         ) : (
           <div>
             <SignupFormContainer />
-            <LoginFormContainer />
+            <LoginFormContainer cookies={this.props.cookies} />
           </div>
         )}
       </div>
@@ -32,9 +41,10 @@ class HomePage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user
+    user: state.user,
+    cookies: ownProps.cookies
   };
 };
 

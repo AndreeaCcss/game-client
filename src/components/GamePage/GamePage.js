@@ -2,16 +2,19 @@ import React from "react";
 
 export default class GamePage extends React.Component {
   render() {
-    if (this.props.user.id === undefined) {
-      let baseUrl = new URL(window.location);
-      baseUrl.pathname = "/";
-      window.location = baseUrl.toString();
-      return;
-    }
+    // if (this.props.user.id === undefined) {
+    //   let baseUrl = new URL(window.location);
+    //   baseUrl.pathname = "/";
+    //   window.location = baseUrl.toString();
+    //   return;
+    // }
 
-    const user = this.props.game.users.find(
-      user => user.id === this.props.user.id
-    );
+    const { cookies } = this.props;
+    const userId = cookies.get("userId");
+    console.log("user id game page", userId);
+
+    const user = this.props.game.users.find(user => user.id == userId);
+    console.log(this.props.game.users);
     const chosen = typeof user.current_choice === "string";
     const theChosenOne = user.current_choice;
 
