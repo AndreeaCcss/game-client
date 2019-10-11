@@ -5,7 +5,7 @@ The project combines our knowledge of HTML5, CSS3, JavaScript, PostgreSQL, React
 
 By @AndreeaCcss and @Mirtles
 
-Back-end: https://github.com/Mirtles/game-server
+Back-end: https://github.com/AndreeaCcss/rock-paper-scissors-server
 
 ##### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
